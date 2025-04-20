@@ -1,11 +1,22 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+myapp = FastAPI()
 
-@app.get('/')
+@myapp.get('/')
+#the below fuction wrapped by the above decorator is called "path operation function" 
 def index():
-    return {'data':{'name':"Sarthak"}}
+    return {'data':'blog list'}
 
-@app.get('/about')
-def about():
-    return {'data':'about page'}
+@myapp.get('/blog/unpublished')
+def unpublished():
+    return {'data':'all unpublished blogs'}
+
+@myapp.get('/blog/{id}')
+def show(id: int):
+    # fetch blog with id = id
+    return {'data': id}
+
+@myapp.get('/blog/{id}/comments')
+def comments(id: int):
+    return {'data': {id * 3, id * 7 + 9}}
+
